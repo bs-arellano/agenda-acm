@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const { router } = require('./router/router')
 const { HOST, PORT, DB_URI } = require('./configs/constants')
 
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const swaggerOptions = require('./swaggerOptions');
+
 //DATABASE
 console.log(DB_URI);
 mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -16,6 +20,8 @@ db.once("open", function () {
 //SERVER
 const app = express()
 
+const specs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use(express.json());
 
 //Middleware
