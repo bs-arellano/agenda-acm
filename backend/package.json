@@ -1,0 +1,20 @@
+{
+  "name": "agenda_api",
+  "version": "0.0.1",
+  "description": "API REST para el aplicativo de agenda propuesto como proyecto para el grupo de trabajo \"API REST con Node\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js"
+  },
+  "author": "Brayan Arellano, Jhon Males, Jared Peralta",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.2",
+    "jsonwebtoken": "9.0.2",
+    "mongoose": "8.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "16.3.1"
+  }
+}
