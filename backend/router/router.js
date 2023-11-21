@@ -179,6 +179,10 @@ router.delete("/delete/user/userID", userController.delete)
  *     description: Crea un nuevo evento con la información proporcionada.
  *     tags: [Event]
  *     parameters:
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
  *       - name: body
  *         in: body
  *         required: true
@@ -227,6 +231,10 @@ router.post("/create/event", eventController.createEvent)
  *         description: ID del evento a eliminar.
  *         schema:
  *           type: string
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
  *     responses:
  *       200:
  *         description: Evento eliminado exitosamente.
@@ -253,6 +261,10 @@ router.delete("/delete/event/:eventId", eventController.deleteEvent)
  *         description: ID del usuario para obtener sus eventos.
  *         schema:
  *           type: string
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
  *     responses:
  *       200:
  *         description: Lista de eventos obtenida exitosamente.
@@ -265,12 +277,73 @@ router.get("/get/events/:userId", eventController.getEventsByUser)
 
 /**
  * @swagger
+ * /get/event/{eventId}:
+ *   get:
+ *     summary: Obtiene un evento por su ID.
+ *     description: Obtiene la información detallada de un evento según su ID.
+ *     tags: [Event]
+ *     parameters:
+ *       - name: eventId
+ *         in: path
+ *         required: true
+ *         description: ID del evento a obtener.
+ *         schema:
+ *           type: string
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
+ *     responses:
+ *       200:
+ *         description: Información del evento obtenida exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   description: ID del evento.
+ *                 startDateTime:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Fecha y hora de inicio del evento.
+ *                 endDateTime:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Fecha y hora de finalización del evento.
+ *                 title:
+ *                   type: string
+ *                   description: Título del evento.
+ *                 description:
+ *                   type: string
+ *                   description: Descripción del evento.
+ *                 categories:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   description: Categorías asociadas al evento.
+ *       403:
+ *         description: No autorizado.
+ *       404:
+ *         description: Evento no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get("/get/event/:eventId", eventController.getEventById)
+
+/**
+ * @swagger
  * /update/event/{eventId}:
  *   put:
  *     summary: Actualiza un evento existente.
  *     description: Actualiza la información de un evento con el ID proporcionado.
  *     tags: [Event]
  *     parameters:
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
  *       - name: eventId
  *         in: path
  *         required: true
@@ -315,31 +388,36 @@ router.get("/get/events/:userId", eventController.getEventsByUser)
  */
 router.put("/update/event/:eventId", eventController.updateEvent)
 
-
 /**
  * @swagger
  * /create/category:
  *   post:
- *     summary: Crea una nueva categoría
+ *     summary: Crea una nueva categoría.
+ *     description: Crea una nueva categoría con la información proporcionada.
  *     tags: [Category]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: Nombre de la categoría
- *               color:
- *                 type: string
- *                 description: Color asociado a la categoría
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
+ *       - name: body
+ *         in: body
+ *         required: true
+ *         description: Información de la categoría a crear.
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *               description: Nombre de la categoría.
+ *             color:
+ *               type: string
+ *               description: Color asociado a la categoría.
  *     responses:
  *       201:
- *         description: Categoría creada exitosamente
+ *         description: Categoría creada exitosamente.
  *       500:
- *         description: Error interno del servidor
+ *         description: Error interno del servidor.
  */
 router.post("/create/category", categoryController.createCategory)
 
@@ -347,24 +425,29 @@ router.post("/create/category", categoryController.createCategory)
  * @swagger
  * /delete/category/{categoryId}:
  *   delete:
- *     summary: Elimina una categoría existente
+ *     summary: Elimina una categoría.
+ *     description: Elimina la categoría con el ID proporcionado.
  *     tags: [Category]
  *     parameters:
- *       - in: path
- *         name: categoryId
+ *       - name: token
+ *         in: header
  *         required: true
- *         description: ID de la categoría a eliminar
+ *         description: Token de autenticación del usuario.
+ *       - name: categoryId
+ *         in: path
+ *         required: true
+ *         description: ID de la categoría a eliminar.
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Categoría eliminada exitosamente
+ *         description: Categoría eliminada exitosamente.
  *       403:
- *         description: No autorizado
+ *         description: No autorizado.
  *       404:
- *         description: Categoría no encontrada
+ *         description: Categoría no encontrada.
  *       500:
- *         description: Error interno del servidor
+ *         description: Error interno del servidor.
  */
 router.delete("/delete/category/:categoryId", categoryController.deleteCategory)
 
@@ -372,60 +455,111 @@ router.delete("/delete/category/:categoryId", categoryController.deleteCategory)
  * @swagger
  * /get/categories/{userId}:
  *   get:
- *     summary: Obtiene todas las categorías asociadas a un usuario
+ *     summary: Obtiene las categorías de un usuario.
+ *     description: Obtiene las categorías asociadas al usuario con el ID proporcionado.
  *     tags: [Category]
  *     parameters:
- *       - in: path
- *         name: userId
+ *       - name: token
+ *         in: header
  *         required: true
- *         description: ID del usuario cuyas categorías se quieren obtener
+ *         description: Token de autenticación del usuario.
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         description: ID del usuario para obtener sus categorías.
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Lista de categorías obtenida exitosamente
+ *         description: Categorías obtenidas exitosamente.
  *       403:
- *         description: No autorizado
+ *         description: No autorizado.
  *       500:
- *         description: Error interno del servidor
+ *         description: Error interno del servidor.
  */
 router.get("/get/categories/:userId", categoryController.getCategoriesByUser)
 
 /**
  * @swagger
- * /update/category/{categoryId}:
- *   put:
- *     summary: Actualiza una categoría existente
+ * /get/category/{categoryId}:
+ *   get:
+ *     summary: Obtiene una categoria por su ID.
+ *     description: Obtiene la información detallada de una categoria según su ID.
  *     tags: [Category]
  *     parameters:
- *       - in: path
- *         name: categoryId
+ *       - name: categoryId
+ *         in: path
  *         required: true
- *         description: ID de la categoría a actualizar
+ *         description: ID de la categoria a obtener.
  *         schema:
  *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: Nuevo nombre de la categoría
- *               color:
- *                 type: string
- *                 description: Nuevo color asociado a la categoría
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
  *     responses:
  *       200:
- *         description: Categoría actualizada exitosamente
+ *         description: Información de la categoria obtenida exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *              type: object
+ *              properties:
+ *                  name:
+ *                      type: string
+ *                      description: Nuevo nombre de la categoría.
+ *                  color:
+ *                      type: string
+ *                      description: Nuevo color asociado a la categoría.
  *       403:
- *         description: No autorizado
+ *         description: No autorizado.
  *       404:
- *         description: Categoría no encontrada
+ *         description: Evento no encontrado.
  *       500:
- *         description: Error interno del servidor
+ *         description: Error interno del servidor.
+ */
+router.get("/get/category/:categoryId", categoryController.getCategoryById)
+
+/**
+ * @swagger
+ * /update/category/{categoryId}:
+ *   put:
+ *     summary: Actualiza una categoría.
+ *     description: Actualiza la categoría con el ID proporcionado.
+ *     tags: [Category]
+ *     parameters:
+ *       - name: categoryId
+ *         in: path
+ *         required: true
+ *         description: ID de la categoría a actualizar.
+ *         schema:
+ *           type: string
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
+ *       - name: body
+ *         in: body
+ *         required: true
+ *         description: Nueva información de la categoría.
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *               description: Nuevo nombre de la categoría.
+ *             color:
+ *               type: string
+ *               description: Nuevo color asociado a la categoría.
+ *     responses:
+ *       200:
+ *         description: Categoría actualizada exitosamente.
+ *       403:
+ *         description: No autorizado.
+ *       404:
+ *         description: Categoría no encontrada.
+ *       500:
+ *         description: Error interno del servidor.
  */
 router.put("/update/category/:categoryId", categoryController.updateCategory)
 
@@ -521,6 +655,50 @@ router.delete("/delete/note/:noteId", noteController.deleteNote)
  *         description: Error interno del servidor.
  */
 router.get("/get/notes/:eventId", noteController.getNotesByEvent)
+
+/**
+ * @swagger
+ * /get/note/{noteId}:
+ *   get:
+ *     summary: Obtiene todas las notas de un evento
+ *     description: Obtiene todas las notas asociadas a un evento. Requiere un token de autenticación en la cabecera.
+ *     tags: [Note]
+ *     parameters:
+ *       - name: noteId
+ *         in: path
+ *         required: true
+ *         description: ID de la nota a obtener.
+ *         schema:
+ *           type: string
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
+ *     responses:
+ *       200:
+ *         description: Información de la nota obtenida exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 title:
+ *                   type: string
+ *                   description: Título de la nota.
+ *                 content:
+ *                   type: string
+ *                   description: Contenido de la nota.
+ *                 event:
+ *                   type: string
+ *                   description: ID del evento asociado a la nota.
+ *       403:
+ *         description: No autorizado.
+ *       404:
+ *         description: Nota no encontrada.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get("/get/note/:noteId", noteController.getNotesById)
 
 /**
  * @swagger

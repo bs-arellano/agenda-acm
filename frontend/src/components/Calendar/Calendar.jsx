@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, startOfWeek } from 'date-fns';
 
-const Calendar = () => {
+const Calendar = ({ changeDate }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
 
     const nextMonth = () => {
+        changeDate(addMonths(currentDate, 1))
         setCurrentDate(addMonths(currentDate, 1));
     };
 
     const prevMonth = () => {
+        changeDate(subMonths(currentDate, 1))
         setCurrentDate(subMonths(currentDate, 1));
+    };
+
+    const goToCurrentMonth = () => {
+        changeDate(new Date())
+        setCurrentDate(new Date());
     };
 
     const getDaysInMonth = () => {
@@ -25,6 +32,7 @@ const Calendar = () => {
         <div>
             <h1>{format(currentDate, 'MMMM yyyy')}</h1>
             <button onClick={prevMonth}>Anterior Mes</button>
+            <button onClick={goToCurrentMonth}>Hoy</button>
             <button onClick={nextMonth}>Siguiente Mes</button>
             <table>
                 <thead>
@@ -42,7 +50,7 @@ const Calendar = () => {
                     {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             {getDaysInMonth().slice(row * 7, (row + 1) * 7).map((day, index) => (
-                                <td key={index}>{day ? format(day, 'd') : ''}</td>
+                                <td key={index} onClick={() => changeDate(day)}>{day ? format(day, 'd') : ''}</td>
                             ))}
                         </tr>
                     ))}

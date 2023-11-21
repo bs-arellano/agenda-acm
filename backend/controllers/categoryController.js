@@ -38,7 +38,23 @@ const categoryController = {
             return res.status(500).json({ message: 'Error interno del servidor' });
         }
     },
-
+    getCategoryById: async (req, res) => {
+        try {
+            const { categoryId } = req.params;
+            const tokenUserId = jwt.verify(req.headers.token, JWT_SECRET).id;
+            const category = await Category.findById(categoryId)
+            if (!category) {
+                return res.status(404).json({ message: 'Categoria no encontrada' });
+            }
+            if (category.user.toString() !== tokenUserId) {
+                return res.status(403).json({ message: 'No autorizado' });
+            }
+            return res.status(200).json(category);
+        } catch (e) {
+            console.error(e);
+            return res.status(500).json({ message: 'Error interno del servidor' });
+        }
+    },
     updateCategory: async (req, res) => {
         try {
             const { categoryId } = req.params;
@@ -55,12 +71,13 @@ const categoryController = {
                 return res.status(403).json({ message: 'No autorizado' });
             }
 
+            const updateFields = {};
+            if (name) updateFields.name = name
+            if (color) updateFields.color = color
+
             await Category.findByIdAndUpdate(
                 categoryId,
-                {
-                    name,
-                    color,
-                },
+                updateFields,
                 { new: true }
             );
 

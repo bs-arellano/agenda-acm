@@ -25,7 +25,23 @@ const eventController = {
             return res.status(500).json({ message: 'Error interno del servidor' });
         }
     },
-
+    getEventById: async (req, res) => {
+        try {
+            const { eventId } = req.params;
+            const tokenUserId = jwt.verify(req.headers.token, JWT_SECRET).id;
+            const event = await Event.findById(eventId).populate('categories');
+            if (!event) {
+                return res.status(404).json({ message: 'Evento no encontrado' });
+            }
+            if (event.user.toString() !== tokenUserId) {
+                return res.status(403).json({ message: 'No autorizado' });
+            }
+            return res.status(200).json(event);
+        } catch (e) {
+            console.error(e);
+            return res.status(500).json({ message: 'Error interno del servidor' });
+        }
+    },
     getEventsByUser: async (req, res) => {
         try {
             const { userId } = req.params;
@@ -42,7 +58,6 @@ const eventController = {
             return res.status(500).json({ message: 'Error interno del servidor' });
         }
     },
-
     updateEvent: async (req, res) => {
         try {
             const { eventId } = req.params;
@@ -51,23 +66,25 @@ const eventController = {
 
             const event = await Event.findById(eventId);
 
-            if (!event) {
+            if (event) {
+                if (event.user.toString() !== tokenUserId) {
+                    return res.status(403).json({ message: 'No autorizado' });
+                }
+            }
+            else {
                 return res.status(404).json({ message: 'Evento no encontrado' });
             }
 
-            if (event.user.toString() !== tokenUserId) {
-                return res.status(403).json({ message: 'No autorizado' });
-            }
+            const updateFields = {};
+            if (startDateTime) updateFields.startDateTime = startDateTime;
+            if (endDateTime) updateFields.endDateTime = endDateTime;
+            if (title) updateFields.title = title;
+            if (description) updateFields.description = description;
+            if (categories) updateFields.categories = categories;
 
             await Event.findByIdAndUpdate(
                 eventId,
-                {
-                    startDateTime,
-                    endDateTime,
-                    title,
-                    description,
-                    categories,
-                },
+                updateFields,
                 { new: true }
             );
 

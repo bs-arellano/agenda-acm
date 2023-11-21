@@ -82,11 +82,11 @@ const userController = {
             if (userID != jwt.verify(token, JWT_SECRET).id) {
                 return res.status(403).json({ message: "No autorizado" });
             }
-            const updatedUser = await User.findByIdAndUpdate(userID, {
-                name: name,
-                email: encrypt(email),
-                password: encrypt(password)
-            })
+            const updateFields = {};
+            if (name) updateFields.name = name;
+            if (email) updateFields.email = email;
+            if (password) updateFields.password = password;
+            const updatedUser = await User.findByIdAndUpdate(userID, updateFields)
             if (!updatedUser) {
                 return res.status(404).json({ message: "Usuario no encontrado" });
             }

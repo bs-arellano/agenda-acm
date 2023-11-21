@@ -73,31 +73,39 @@ const Profile = () => {
 
     return profile ? (
         <>
-            <span>Nombre</span>: {profile.name}
-            <br />
-            <span>Correo</span>: {profile.email}
-            <br />
-            <button onClick={()=>setEditing(true)}>Editar</button>
-            {editing?(
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Nombre:
-                        <input type="text" value={name} onChange={handleNameChange} />
-                    </label>
+            {editing ? (
+                <>
+                    <h2>Editar perfil</h2>
+                    <form onSubmit={handleSubmit}>
+                        <label>
+                            Nombre:
+                            <input type="text" value={name} onChange={handleNameChange}/>
+                        </label>
+                        <br />
+                        <label>
+                            Correo electrónico:
+                            <input type="email" value={email} onChange={handleEmailChange} />
+                        </label>
+                        <br />
+                        <label>
+                            Contraseña:
+                            <input type="password" value={password} onChange={handlePasswordChange} />
+                        </label>
+                        <br />
+                        <button type="submit">Actualizar</button>
+                    </form>
+                    <button onClick={() => setEditing(false)}>Cancelar</button>
+                </>
+            ) : (
+                <>
+                    <h1>Perfil</h1>
+                    <span>Nombre</span>: {profile.name}
                     <br />
-                    <label>
-                        Correo electrónico:
-                        <input type="email" value={email} onChange={handleEmailChange} />
-                    </label>
+                    <span>Correo</span>: {profile.email}
                     <br />
-                    <label>
-                        Contraseña:
-                        <input type="password" value={password} onChange={handlePasswordChange} />
-                    </label>
-                    <br />
-                    <button type="submit">Actualizar</button>
-                </form>
-            ):null}
+                    <button onClick={() => setEditing(true)}>Editar</button>
+                </>
+            )}
         </>
     ) : null
 }

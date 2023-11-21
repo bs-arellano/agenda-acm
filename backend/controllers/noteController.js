@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { Note } = require('../models/noteModel');
 const { Event } = require('../models/eventModel');
+const { User } = require("../models/userModel")
 const { JWT_SECRET } = require('../configs/constants');
 
 const noteController = {
@@ -55,6 +56,35 @@ const noteController = {
         }
     },
 
+    getNotesById: async (req, res) => {
+        try {
+            const { noteId } = req.params;
+            const tokenUserId = jwt.verify(req.headers.token, JWT_SECRET).id;
+    
+            const note = await Note.findById(noteId);
+            if (!note) {
+                return res.status(404).json({ message: 'Nota no encontrada' });
+            }
+
+            // Verifica si el usuario tiene permisos para acceder a la nota
+            const event = await Event.findById(note.event.toString())
+            if (!event){
+                throw new Error('Error al obtener el evento')
+            }
+            const user = await User.findById(event.user.toString())
+            if (!user){
+                throw new Error('Error al obtener el usuario')
+            }
+            if (user.toString() !== tokenUserId) {
+                return res.status(403).json({ message: 'No autorizado' });
+            }
+            return res.status(200).json(note);
+        } catch (e) {
+            console.error(e);
+            return res.status(500).json({ message: 'Error interno del servidor' });
+        }
+    },
+
     updateNote: async (req, res) => {
         try {
             const { noteId } = req.params;
@@ -76,12 +106,13 @@ const noteController = {
                 return res.status(403).json({ message: 'No autorizado' });
             }
 
+            const updateFields = {};
+            if (title) updateFields.title = title;
+            if (body) updateFields.body = body;
+
             await Note.findByIdAndUpdate(
                 noteId,
-                {
-                    title,
-                    body,
-                },
+                updateFields,
                 { new: true }
             );
 
