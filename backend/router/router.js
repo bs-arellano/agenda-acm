@@ -10,22 +10,26 @@ const router = Router()
  * @swagger
  * /signup:
  *   post:
- *     summary: Registro de usuario
+ *     summary: Registra un nuevo usuario.
+ *     description: Registra un nuevo usuario con la información proporcionada.
  *     tags: [User]
- *     description: Crea un nuevo usuario con nombre, correo electrónico y contraseña.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         required: true
+ *         description: Información del usuario a registrar.
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *               description: Nombre del usuario.
+ *             email:
+ *               type: string
+ *               description: Correo electrónico del usuario.
+ *             password:
+ *               type: string
+ *               description: Contraseña del usuario.
  *     responses:
  *       201:
  *         description: Usuario registrado exitosamente.
@@ -40,25 +44,28 @@ router.post("/signup", userController.signup)
  * @swagger
  * /signin:
  *   post:
- *     summary: Inicio de sesión
+ *     summary: Inicia sesión de un usuario.
+ *     description: Inicia sesión de un usuario con las credenciales proporcionadas.
  *     tags: [User]
- *     description: Inicia sesión con correo electrónico y contraseña.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         required: true
+ *         description: Credenciales del usuario para iniciar sesión.
+ *         schema:
+ *           type: object
+ *           properties:
+ *             email:
+ *               type: string
+ *               description: Correo electrónico del usuario.
+ *             password:
+ *               type: string
+ *               description: Contraseña del usuario.
  *     responses:
  *       200:
- *         description: Inicio de sesión exitoso. Devuelve un token de acceso.
+ *         description: Inicio de sesión exitoso. Devuelve el ID del usuario y un token.
  *       401:
- *         description: Credenciales incorrectas o usuario no encontrado.
+ *         description: Usuario no encontrado o credenciales incorrectas.
  *       500:
  *         description: Error interno del servidor.
  */
@@ -68,66 +75,101 @@ router.post("/signin", userController.signin)
  * @swagger
  * /update/user/{userID}:
  *   put:
- *     summary: Actualización de usuario
+ *     summary: Actualiza la información de un usuario.
+ *     description: Actualiza la información de un usuario identificado por su ID.
  *     tags: [User]
- *     description: Actualiza la información del usuario identificado por su ID.
  *     parameters:
- *       - in: path
- *         name: userID
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
+ *       - name: userID
+ *         in: path
  *         required: true
  *         description: ID del usuario a actualizar.
+ *       - name: body
+ *         in: body
+ *         required: true
+ *         description: Nueva información del usuario.
  *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *               description: Nuevo nombre del usuario.
+ *             email:
+ *               type: string
+ *               description: Nuevo correo electrónico del usuario.
+ *             password:
+ *               type: string
+ *               description: Nueva contraseña del usuario.
  *     responses:
  *       200:
  *         description: Usuario actualizado exitosamente.
  *       403:
- *         description: No autorizado para actualizar este usuario.
+ *         description: No autorizado.
  *       404:
  *         description: Usuario no encontrado.
  *       500:
  *         description: Error interno del servidor.
  */
-router.put("/update/user/{userID}", userController.update)
+router.put("/update/user/:userID", userController.update)
+
+/**
+ * @swagger
+ * /get/user/{userID}:
+ *   get:
+ *     summary: Obtiene información de un usuario.
+ *     description: Obtiene información detallada de un usuario.
+ *     tags: [User]
+ *     parameters:
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
+ *       - name: userID
+ *         in: path
+ *         required: true
+ *         description: ID del usuario cuya información se desea obtener.
+ *     responses:
+ *       200:
+ *         description: Información del usuario obtenida exitosamente.
+ *       403:
+ *         description: No autorizado para acceder a la información del usuario.
+ *       404:
+ *         description: Usuario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get("/get/user/:userID", userController.get)
 
 /**
  * @swagger
  * /delete/user/{userID}:
  *   delete:
- *     summary: Eliminación de usuario
+ *     summary: Elimina un usuario.
+ *     description: Elimina un usuario identificado por su ID.
  *     tags: [User]
- *     description: Elimina el usuario identificado por su ID.
  *     parameters:
- *       - in: path
- *         name: userID
+ *       - name: token
+ *         in: header
+ *         required: true
+ *         description: Token de autenticación del usuario.
+ *       - name: userID
+ *         in: path
  *         required: true
  *         description: ID del usuario a eliminar.
- *         schema:
- *           type: string
  *     responses:
  *       200:
  *         description: Usuario eliminado exitosamente.
  *       403:
- *         description: No autorizado para eliminar este usuario.
+ *         description: No autorizado.
  *       404:
  *         description: Usuario no encontrado.
  *       500:
  *         description: Error interno del servidor.
  */
-router.delete("/delete/user/{userID}", userController.delete)
+router.delete("/delete/user/userID", userController.delete)
 
 /**
  * @swagger
