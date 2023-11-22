@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-
 import { backend_url } from "../../constans/constants"
+import "./listevent.css"
 
 const ListEvents = ({ date }) => {
     const navigate = useNavigate()
@@ -64,13 +64,13 @@ const ListEvents = ({ date }) => {
     }
 
     return (
-        <>
+        <div className="event-list">
             {/*Indicador del filtro actual */}
-            <span>Viendo eventos de: {
+            <strong>Eventos de: {
                 eventFilter === 'day' ? date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }) :
                     eventFilter === 'month' ? date.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }) :
                         date.toLocaleDateString('es-ES', { year: 'numeric' })
-            }</span>
+            }</strong>
             <br />
             {/* Selector para cambiar el filtro */}
             <label htmlFor="eventFilter">Filtrar por:</label>
@@ -107,7 +107,7 @@ const ListEvents = ({ date }) => {
                 </ul>
             ) : null}
             <button onClick={newEvent}>Crear evento</button>
-        </>
+        </div>
     )
 }
 

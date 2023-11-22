@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, startOfWeek } from 'date-fns';
+import "./calendar.css"
 
 const Calendar = ({ changeDate }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -29,11 +30,13 @@ const Calendar = ({ changeDate }) => {
     };
 
     return (
-        <div>
-            <h1>{format(currentDate, 'MMMM yyyy')}</h1>
-            <button onClick={prevMonth}>Anterior Mes</button>
-            <button onClick={goToCurrentMonth}>Hoy</button>
-            <button onClick={nextMonth}>Siguiente Mes</button>
+        <div className="calendar-container">
+            <div className="calendar-header">
+                <h1>{format(currentDate, 'MMMM yyyy')}</h1>
+                <button onClick={prevMonth}>Anterior Mes</button>
+                <button onClick={goToCurrentMonth}>Hoy</button>
+                <button onClick={nextMonth}>Siguiente Mes</button>
+            </div>
             <table>
                 <thead>
                     <tr>

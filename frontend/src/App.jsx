@@ -1,6 +1,7 @@
-import Home from './pages/Home/Home'
+import "./app.css"
 
 import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home/Home'
 import Signin from './pages/Auth/Signin'
 import Signup from './pages/Auth/Signup'
 import Signout from './pages/Auth/Signout'
@@ -9,6 +10,7 @@ import NavBar from './components/Navbar/NavBar'
 import Event from './pages/Event/Event'
 import CreateEvent from './pages/Event/CreateEvent'
 import EditEvent from './pages/Event/EditEvent'
+
 
 const App = () => {
   return (

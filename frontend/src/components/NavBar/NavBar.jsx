@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { home_icon, signin_icon, user_icon } from "../../assets/icons";
+import "./navbar.css"
 const NavBar = () => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const [showMenu, setShowMenu] = useState(false);
@@ -12,7 +13,7 @@ const NavBar = () => {
         <nav className="navigation-bar">
             <NavLink to="/">
                 {home_icon}
-                <span>Agenda</span>
+                <strong>Agenda</strong>
             </NavLink>
 
             <div className="dropdown">

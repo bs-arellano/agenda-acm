@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import Calendar from "../../components/Calendar/Calendar"
 import ListEvents from "../../components/Event/ListEvents"
+import "./home.css"
 
 const Home = () => {
     const navigate = useNavigate()
@@ -20,10 +20,10 @@ const Home = () => {
 
 
     return isAuthenticated?(
-        <>
+        <div className="home">
             <Calendar changeDate={handleDateChange} />
             <ListEvents date={viewingDate} />
-        </>
+        </div>
     ):null
 }
 
