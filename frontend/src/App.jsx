@@ -6,7 +6,7 @@ import Signin from "./pages/Auth/Signin";
 import Signup from "./pages/Auth/Signup";
 import Signout from "./pages/Auth/Signout";
 import Profile from "./pages/Profile/Profile";
-import NavBar from "./components/Navbar/NavBar";
+import NavBar from "./components/NavBar/NavBar";
 import Event from "./pages/Event/Event";
 import CreateEvent from "./pages/Event/CreateEvent";
 import EditEvent from "./pages/Event/EditEvent";
