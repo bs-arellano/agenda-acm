@@ -1,19 +1,19 @@
 import "./app.css";
 
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Signin from "./pages/Auth/Signin";
-import Signup from "./pages/Auth/Signup";
-import Signout from "./pages/Auth/Signout";
-import Profile from "./pages/Profile/Profile";
-import NavBar from "./components/Navbar/NavBar";
-import Event from "./pages/Event/Event";
-import CreateEvent from "./pages/Event/CreateEvent";
+import Home from "./pages/Home/Home.jsx";
+import Signin from "./pages/Auth/Signin.jsx";
+import Signup from "./pages/Auth/Signup.jsx";
+import Signout from "./pages/Auth/Signout.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
+import NavBar from "./components/Navbar/NavBar.jsx";
+import Event from "./pages/Event/Event.jsx";
+import CreateEvent from "./pages/Event/CreateEvent.jsx";
 import EditEvent from "./pages/Event/EditEvent";
-import CreateCategory from "./pages/category/CreateCategory";
-import EditCategory from "./pages/category/EditCategory";
-import CreateNote from './pages/Note/CreateNote'
-import Note from "./pages/Note/Note"
+import CreateCategory from "./pages/category/CreateCategory.jsx";
+import EditCategory from "./pages/category/EditCategory.jsx";
+import CreateNote from './pages/Note/CreateNote.jsx'
+import Note from "./pages/Note/Note.jsx"
 
 const App = () => {
   return (
