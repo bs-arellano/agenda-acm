@@ -5,10 +5,12 @@ import { backend_url } from "../../constans/constants";
 
 const Note = () => {
     const { noteId } = useParams();
+    //Nota local
     const [note, setNote] = useState(null);
+    //Nota remota
     const [noteData, setNoteData] = useState({
         title: "",
-        content: "",
+        body: "",
     });
 
     const user = useSelector((state) => state.auth.user);
@@ -26,14 +28,14 @@ const Note = () => {
                 });
 
                 if (response.ok) {
-                    const noteData = await response.json();
+                    const data = await response.json();
                     setNote({
-                        ...noteData,
-                        eventId: noteData.event._id,
+                        ...data,
+                        //eventId: data.event,
                     });
                     setNoteData({
-                        title: noteData.title,
-                        content: noteData.content
+                        title: data.title,
+                        body: data.body
                     });
                 } else if (response.status === 404) {
                     console.error("Nota no encontrada");
@@ -67,11 +69,10 @@ const Note = () => {
             });
 
             if (response.ok) {
-                // Actualizar la nota local con los datos actualizados
-                const updatedNote = await response.json();
                 setNote({
-                    ...updatedNote,
-                    eventId: updatedNote.event._id,
+                    ...note,
+                    title: noteData.title,
+                    body: noteData.body
                 });
             } else {
                 console.error("Error al actualizar la nota");
@@ -80,12 +81,11 @@ const Note = () => {
             console.error("Error al actualizar la nota:", error);
         }
     };
-
     return note ? (
         <>
             <h2>{note.title}</h2>
             <p>{note.content}</p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="data-form">
                 <label>
                     Título:
                     <input
@@ -101,15 +101,20 @@ const Note = () => {
                 <label>
                     Contenido:
                     <textarea
-                        name="content"
-                        value={noteData.content}
+                        name="body"
+                        value={noteData.body}
                         onChange={handleChange}
                         required
                     />
                 </label>
                 <br />
 
-                <button type="submit">Guardar cambios</button>
+                <button type="submit" className="btn-primary">Guardar cambios</button>
+                <button  className="btn-secondary" onClick={(e)=>{
+                    e.preventDefault()
+                    navigate(`/event/${note.event}`)
+                }}>Volver</button>
+
             </form>
         </>
     ) : (

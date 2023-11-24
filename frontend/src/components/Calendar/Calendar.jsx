@@ -53,7 +53,7 @@ const Calendar = ({ changeDate }) => {
                     {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             {getDaysInMonth().slice(row * 7, (row + 1) * 7).map((day, index) => (
-                                <td key={index} className={format(day, 'd') === format(currentDate, 'd') ? 'selected-day' : ''} onClick={() => changeDate(day)}>{day ? format(day, 'd') : ''}</td>
+                                <td key={index} onClick={() => changeDate(day)}>{day ? format(day, 'd') : ''}</td>
                             ))}
                         </tr>
                     ))}

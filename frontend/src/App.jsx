@@ -30,6 +30,8 @@ const App = () => {
         <Route path="/create/category" element={<CreateCategory />} />
         <Route path="/edit/categories/:userId" element={<EditCategory />} />
         <Route path="/edit/event/:eventId" element={<EditEvent />} />
+        <Route path="/create/category" element={<CreateCategory />} />
+        <Route path="/edit/categories/:userId" element={<EditCategory />} />
         <Route path='/create/note/:eventId' element={<CreateNote />} />
         <Route path='/note/:noteId' element={<Note />} />
       </Routes>

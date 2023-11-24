@@ -44,12 +44,12 @@ const CreateCategory = () => {
 
   //Colores disponibles
   const colorOptions = [
-    { name: "Rojo", value: "#FF0000" },
-    { name: "Verde", value: "#00FF00" },
-    { name: "Azul", value: "#0000FF" },
-    { name: "Amarillo", value: "#FFFF00" },
-    { name: "Morado", value: "#FF00FF" },
-    { name: "Cian", value: "#00FFFF" },
+    { name: "Rojo", value: "#EB5353" },
+    { name: "Verde", value: "#6BCB77" },
+    { name: "Azul", value: "#4D96FF" },
+    { name: "Amarillo", value: "#FFD93D" },
+    { name: "Morado", value: "#AB46D2" },
+    { name: "Cian", value: "#37E2D5" },
   ];
 
   return (

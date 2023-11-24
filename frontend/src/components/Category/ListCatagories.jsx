@@ -32,15 +32,13 @@ const ListCategories = () => {
     const editCategory = () => {
         navigate(`/edit/categories/${user.id}`);
     };
-    console.log(categories);
     return (
         <div>
             <h2>Categorias</h2>
             {categories.length > 0 ? (
                 <ul>
                     {categories.map(category => (
-                        <li key={category.id}>
-                            {console.log(category)}
+                        <li key={category._id}>
                             <div className="category-item" style={{ backgroundColor: category.color }}>{category.name}</div>
                         </li>
                     ))}

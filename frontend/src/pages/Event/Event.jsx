@@ -47,7 +47,6 @@ const Event = () => {
                 })
                 if (response.ok) {
                     const notesData = await response.json()
-                    console.log(notesData);
                     setNotes(notesData)
                 }
             } catch (error) {
@@ -115,7 +114,7 @@ const Event = () => {
                     <ul>
                         {event.categories.map(category => (
                             <li key={category._id}>
-                                <div className="category-item">
+                                <div className="category-item" style={{backgroundColor:category.color}}>
                                     {category.name}
                                 </div>
                             </li>
@@ -125,26 +124,20 @@ const Event = () => {
             ) : null}
 
             {/* Notas */}
-            <button onClick={newNote}>Agregar nota</button>
-            <button onClick={() => {
-                navigate(`/edit/event/${event._id}`)
-            }}>Editar</button>
-            <button onClick={deleteEvent}>Borrar</button>
-            {/* <ListNotes eventId={event._id} /> */}
             {notes.length > 0 ? (
                 <section>
-                    <span>Notas</span>
+                    <span className="field-title">Notas</span>
                     <ul>
                         {notes.map(note => (
                             <li key={note._id}>
                                 <div className="note-item">
-                                    <h3>{note.title}</h3>
-                                    <button onClick={() => {
+                                    <span>{note.title}</span>
+                                    <button className="btn-secondary" onClick={() => {
                                         navigate(`/note/${note._id}`)
                                     }
                                     }>Editar</button>
 
-                                    <button onClick={() => {
+                                    <button className="btn-secondary" onClick={() => {
                                         deleteNote(note._id)
                                     }}>Borrar</button>
                                 </div>
@@ -153,7 +146,7 @@ const Event = () => {
                     </ul>
                 </section>
             ) : null}
-            <button className="btn-primary">Agregar nota</button>
+            <button className="btn-primary" onClick={newNote}>Agregar nota</button>
             <button className="btn-secondary" onClick={() => {
                 navigate(`/edit/event/${event._id}`)
             }}>Editar</button>

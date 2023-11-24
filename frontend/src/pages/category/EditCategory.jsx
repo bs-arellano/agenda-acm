@@ -147,7 +147,8 @@ const EditCategory = () => {
         </button>
         <button
           className="btn-secondary"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault()
             navigate(`/`);
           }}
         >
