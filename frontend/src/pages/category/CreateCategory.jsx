@@ -55,7 +55,7 @@ const CreateCategory = () => {
   return (
     <>
       <h2>Crear Categoria</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}  className='data-form'>
         <label>
           Nombre:
           <input
@@ -92,7 +92,7 @@ const CreateCategory = () => {
         </label>
         <br />
 
-        <button type="submit">Crear Categoria</button>
+        <button className="btn-primary" type="submit">Crear Categoria</button>
       </form>
     </>
   );

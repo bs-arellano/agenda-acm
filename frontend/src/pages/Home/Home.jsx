@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Calendar from "../../components/Calendar/Calendar";
 import ListEvents from "../../components/Event/ListEvents";
 import "./home.css";
-import CategoryB from "../../components/Category/CategoryB";
-import CategoryE from "../../components/Category/CategoryE";
+import ListCategories from "../../components/Category/ListCatagories"
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,8 +23,7 @@ const Home = () => {
     <div className="home">
       <Calendar changeDate={handleDateChange} />
       <ListEvents date={viewingDate} />
-      <CategoryB />
-      <CategoryE />
+      <ListCategories />
     </div>
   ) : null;
 };

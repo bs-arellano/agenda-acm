@@ -6,8 +6,8 @@ import { useParams, useNavigate } from "react-router-dom";
 const EditCategory = () => {
   const navigate = useNavigate();
 
-  const { categoryId } = useParams();
-  const user = useSelector((state) => state.auth.user);
+  const { userId } = useParams();
+  const token = useSelector((state) => state.auth.user.token);
   const [userCategories, setUserCategories] = useState([]);
   const [eventData, setEventData] = useState({
     name: "",
@@ -15,16 +15,16 @@ const EditCategory = () => {
   });
 
   useEffect(() => {
-    fetch(`${backend_url}/get/categories/${user.id}`, {
+    fetch(`${backend_url}/get/categories/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        token: user.token,
+        token: token,
       },
     })
       .then((response) => response.json())
       .then((data) => setUserCategories(data));
-  }, [user]);
+  }, [userId, token]);
 
   // Cambio en formulario
   const handleChange = (e) => {
@@ -58,7 +58,7 @@ const EditCategory = () => {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
-              token: user.token,
+              token: token,
             },
           }
         );
@@ -92,7 +92,7 @@ const EditCategory = () => {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              token: user.token,
+              token: token,
             },
             body: JSON.stringify({
               name: eventData.name,
@@ -112,7 +112,7 @@ const EditCategory = () => {
   return (
     <>
       <h2>Editar categoría</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='data-form'>
         <label>
           Categorías:
           <select
@@ -141,18 +141,20 @@ const EditCategory = () => {
           />
         </label>
         <br />
-        <button type="submit">Confirmar</button>
-        <button type="button" onClick={handleDelete}>
+        <button className="btn-primary" type="submit">Confirmar</button>
+        <button className="btn-secondary" type="button" onClick={handleDelete}>
           Eliminar
         </button>
+        <button
+          className="btn-secondary"
+          onClick={() => {
+            navigate(`/`);
+          }}
+        >
+          Cancelar
+        </button>
       </form>
-      <button
-        onClick={() => {
-          navigate(`/`);
-        }}
-      >
-        Cancelar
-      </button>
+
     </>
   );
 };

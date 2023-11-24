@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/event/:eventId" element={<Event />} />
         <Route path="/create/event" element={<CreateEvent />} />
         <Route path="/create/category" element={<CreateCategory />} />
-        <Route path="/edit/category/:eventId" element={<EditCategory />} />
+        <Route path="/edit/categories/:userId" element={<EditCategory />} />
         <Route path="/edit/event/:eventId" element={<EditEvent />} />
       </Routes>
     </>
