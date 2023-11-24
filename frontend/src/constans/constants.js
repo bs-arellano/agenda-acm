@@ -1,3 +1,3 @@
-const backend_url = 'http://127.0.0.1:3000'
+const backend_url = 'https://agendaacm2023-3-backend.onrender.com'
 
 export { backend_url }
