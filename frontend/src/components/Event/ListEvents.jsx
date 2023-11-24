@@ -95,7 +95,7 @@ const ListEvents = ({ date }) => {
                                 <ul>
                                     {event.categories.map(category => (
                                         <li key={category._id}>
-                                            <div className="category-item">
+                                            <div className="category-item" style={{backgroundColor:category.color}}>
                                                 {category.name}
                                             </div>
                                         </li>
@@ -106,7 +106,7 @@ const ListEvents = ({ date }) => {
                     ))}
                 </ul>
             ) : null}
-            <button onClick={newEvent}>Crear evento</button>
+            <button className="btn-primary" onClick={newEvent}>Crear evento</button>
         </div>
     )
 }
