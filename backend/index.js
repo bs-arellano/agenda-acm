@@ -20,7 +20,7 @@ db.once("open", function () {
 
 //CORS
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'https://agendaacm2023-3-frontend.onrender.com',
 }
 
 //SWAGGER
