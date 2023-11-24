@@ -12,6 +12,8 @@ import CreateEvent from "./pages/Event/CreateEvent";
 import EditEvent from "./pages/Event/EditEvent";
 import CreateCategory from "./pages/category/CreateCategory";
 import EditCategory from "./pages/category/EditCategory";
+import CreateNote from './pages/Note/CreateNote'
+import Note from "./pages/Note/Note"
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
         <Route path="/create/category" element={<CreateCategory />} />
         <Route path="/edit/categories/:userId" element={<EditCategory />} />
         <Route path="/edit/event/:eventId" element={<EditEvent />} />
+        <Route path='/create/note/:eventId' element={<CreateNote />} />
+        <Route path='/note/:noteId' element={<Note />} />
       </Routes>
     </>
   );

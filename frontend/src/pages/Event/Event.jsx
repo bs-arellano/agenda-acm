@@ -38,7 +38,7 @@ const Event = () => {
     useEffect(() => {
         const fetchNotes = async (id) => {
             try {
-                const response = fetch(`${backend_url}/get/notes/${id}`, {
+                const response = await fetch(`${backend_url}/get/notes/${id}`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
@@ -76,6 +76,30 @@ const Event = () => {
         }
     }
 
+    const newNote = () => {
+        navigate(`/create/note/${event._id}`)
+    }
+
+    const deleteNote = async (id) => {
+        try{
+            const response = await fetch(`${backend_url}/delete/note/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "token": user.token
+                }
+            })
+            if (response.ok){
+                setNotes(notes.filter(note => note._id !== id))
+            } else{
+                throw new Error(response.statusText)
+            }
+        }catch (e) {
+            console.log(e);
+        }
+    }
+
+
     return event ? (
         <div className="card">
             <h2>{event.title}</h2>
@@ -101,14 +125,28 @@ const Event = () => {
             ) : null}
 
             {/* Notas */}
+            <button onClick={newNote}>Agregar nota</button>
+            <button onClick={() => {
+                navigate(`/edit/event/${event._id}`)
+            }}>Editar</button>
+            <button onClick={deleteEvent}>Borrar</button>
+            {/* <ListNotes eventId={event._id} /> */}
             {notes.length > 0 ? (
                 <section>
                     <span>Notas</span>
                     <ul>
-                        {event.categories.map(category => (
-                            <li key={category._id}>
-                                <div className="category-item">
-                                    {category.name}
+                        {notes.map(note => (
+                            <li key={note._id}>
+                                <div className="note-item">
+                                    <h3>{note.title}</h3>
+                                    <button onClick={() => {
+                                        navigate(`/note/${note._id}`)
+                                    }
+                                    }>Editar</button>
+
+                                    <button onClick={() => {
+                                        deleteNote(note._id)
+                                    }}>Borrar</button>
                                 </div>
                             </li>
                         ))}
