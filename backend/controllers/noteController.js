@@ -12,10 +12,12 @@ const noteController = {
 
             const event = await Event.findById(eventId);
             if (!event) {
+                console.log("Evento no encontrado")
                 return res.status(404).json({ message: 'Evento no encontrado' });
             }
 
             if (event.user.toString() !== userId) {
+                console.log("No autorizado")
                 return res.status(403).json({ message: 'No autorizado' });
             }
 

@@ -172,7 +172,8 @@ const EditEvent = () => {
                 </label>
                 <br />
                 <button className='btn-primary' type="submit">Confirmar</button>
-                <button className='btn-secondary' onClick={() => {
+                <button className='btn-secondary' onClick={(e) => {
+                    e.preventDefault()
                     navigate(`/event/${eventId}`)
                 }}>Cancelar</button>
             </form>
