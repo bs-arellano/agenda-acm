@@ -6,7 +6,7 @@ import Signin from "./pages/Auth/Signin.jsx";
 import Signup from "./pages/Auth/Signup.jsx";
 import Signout from "./pages/Auth/Signout.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
-import NavBar from "./components/Navbar/NavBar.jsx";
+import NavBar from "./components/NavBar/NavBar.jsx";
 import Event from "./pages/Event/Event.jsx";
 import CreateEvent from "./pages/Event/CreateEvent.jsx";
 import EditEvent from "./pages/Event/EditEvent";
