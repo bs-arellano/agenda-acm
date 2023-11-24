@@ -10,6 +10,8 @@ import NavBar from './components/Navbar/NavBar'
 import Event from './pages/Event/Event'
 import CreateEvent from './pages/Event/CreateEvent'
 import EditEvent from './pages/Event/EditEvent'
+import CreateNote from './pages/Note/CreateNote'
+import Note from "./pages/Note/Note"
 
 
 const App = () => {
@@ -25,6 +27,8 @@ const App = () => {
         <Route path='/event/:eventId' element={<Event />} />
         <Route path='/create/event' element={<CreateEvent />} />
         <Route path='/edit/event/:eventId' element={<EditEvent />} />
+        <Route path='/create/note/:eventId' element={<CreateNote />} />
+        <Route path='/note/:noteId' element={<Note />} />
       </Routes>
     </>
   )
