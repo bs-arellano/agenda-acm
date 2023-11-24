@@ -32,10 +32,10 @@ const Calendar = ({ changeDate }) => {
     return (
         <div className="calendar-container">
             <div className="calendar-header">
-                <h1>{format(currentDate, 'MMMM yyyy')}</h1>
-                <button onClick={prevMonth}>Anterior Mes</button>
-                <button onClick={goToCurrentMonth}>Hoy</button>
-                <button onClick={nextMonth}>Siguiente Mes</button>
+                <h2>{format(currentDate, 'MMMM yyyy')}</h2>
+                <button className='btn-secondary' onClick={prevMonth}>Anterior Mes</button>
+                <button className='btn-primary' onClick={goToCurrentMonth}>Hoy</button>
+                <button className='btn-secondary' onClick={nextMonth}>Siguiente Mes</button>
             </div>
             <table>
                 <thead>
@@ -53,7 +53,7 @@ const Calendar = ({ changeDate }) => {
                     {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             {getDaysInMonth().slice(row * 7, (row + 1) * 7).map((day, index) => (
-                                <td key={index} onClick={() => changeDate(day)}>{day ? format(day, 'd') : ''}</td>
+                                <td key={index} className={format(day, 'd') === format(currentDate, 'd') ? 'selected-day' : ''} onClick={() => changeDate(day)}>{day ? format(day, 'd') : ''}</td>
                             ))}
                         </tr>
                     ))}

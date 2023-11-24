@@ -1,11 +1,110 @@
-body{
+body {
     margin: 0;
     min-height: 100dvh;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     min-width: 470px;
 }
-#root{
+
+#root {
     display: flex;
     flex-direction: column;
     width: 100%
+}
+
+.btn-primary,
+.btn-secondary {
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.btn-primary {
+    background-color: #263238;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    cursor: pointer;
+    background-color: #546E7A;
+}
+
+.btn-secondary {
+    background-color: #CFD8DC;
+    color: #000000;
+}
+
+.btn-secondary:hover {
+    background-color: #90A4AE;
+    cursor: pointer;
+}
+
+.form-auth, .data-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: auto;
+    align-items: center;
+}
+
+.form-auth .btn-primary {
+    max-width: 70%;
+}
+
+.form-control, .data-form label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-control input, .data-form label input {
+    border: 1px solid #263238;
+    border-radius: 25px;
+    background-color: #fff;
+    padding: 5px 10px;
+    width: 90%;
+}
+
+.form-control input:focus, .data-form label input:focus, .data-form textarea:focus {
+    border: 1px solid #607D8B;
+}
+
+a {
+    text-decoration: none;
+    color: #546E7A;
+}
+
+a:visited {
+    color: #546E7A;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.data-form textarea{
+    resize: none;
+    overflow-y: hidden;
+    min-height: 50px;
+    border-radius: 5px;
+    border: 1px solid #263238;
+}
+
+.data-form select{
+    overflow-y: hidden;
+    min-height: 50px;
+    border-radius: 5px;
+    border: 1px solid #263238;
+}
+
+.card{
+    margin: 1rem auto;
+    padding: 1rem;
+    border: 1px solid #CFD8DC;
+    border-radius: 25px;
+}
+.card .field-title{
+    font-weight: bolder;
 }

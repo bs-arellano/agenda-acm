@@ -77,7 +77,7 @@ const CreateEvent = () => {
     return (
         <>
             <h2>Crear Evento</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='data-form'>
                 <label>
                     Fecha y hora de inicio:
                     <input
@@ -141,7 +141,7 @@ const CreateEvent = () => {
                 </label>
                 <br />
 
-                <button type="submit">Crear Evento</button>
+                <button className='btn-primary' type="submit">Crear Evento</button>
             </form>
         </>
     );

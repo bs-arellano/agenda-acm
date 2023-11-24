@@ -54,18 +54,18 @@ const Signin = () => {
     return (
         <>
             <h1>Inicio de sesión</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
+            <form onSubmit={handleSubmit} className="form-auth">
+                <label className="form-control">
                     Correo electrónico:
                     <input type="email" value={email} onChange={handleEmailChange} />
                 </label>
                 <br />
-                <label>
+                <label className="form-control">
                     Contraseña:
                     <input type="password" value={password} onChange={handlePasswordChange} />
                 </label>
                 <br />
-                <button type="submit">Iniciar sesión</button>
+                <button type="submit" className="btn-primary">Iniciar sesión</button>
             </form>
             <Link to={"/signup"}>Registrarse</Link>
         </>

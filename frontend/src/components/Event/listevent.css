@@ -1,6 +1,18 @@
-.event-list{
+.event-list {
     display: flex;
     flex-direction: column;
     padding: 1rem 2rem;
     box-sizing: border-box;
+}
+
+#eventFilter {
+    border: 1px solid #263238;
+    border-radius: 25px;
+    background-color: #fff;
+    padding: 5px 10px;
+}
+
+.category-item{
+    padding: 5px 10px;
+    border-radius: 25px;
 }

@@ -47,6 +47,7 @@ const Event = () => {
                 })
                 if (response.ok) {
                     const notesData = await response.json()
+                    console.log(notesData);
                     setNotes(notesData)
                 }
             } catch (error) {
@@ -76,17 +77,17 @@ const Event = () => {
     }
 
     return event ? (
-        <>
+        <div className="card">
             <h2>{event.title}</h2>
             <p>{event.description}</p>
-            <span>Fecha</span>
+            <span className="field-title">Fecha</span>
             <p>Inicio: {new Date(event.startDateTime).toLocaleString()}</p>
             <p>Fin: {new Date(event.endDateTime).toLocaleString()}</p>
 
             {/* Categorias */}
             {event.categories.length > 0 ? (
                 <section>
-                    <span>Categorias</span>
+                    <span className="field-title">Categorias</span>
                     <ul>
                         {event.categories.map(category => (
                             <li key={category._id}>
@@ -114,12 +115,12 @@ const Event = () => {
                     </ul>
                 </section>
             ) : null}
-            <button>Agregar nota</button>
-            <button onClick={() => {
+            <button className="btn-primary">Agregar nota</button>
+            <button className="btn-secondary" onClick={() => {
                 navigate(`/edit/event/${event._id}`)
             }}>Editar</button>
-            <button onClick={deleteEvent}>Borrar</button>
-        </>
+            <button className="btn-secondary" onClick={deleteEvent}>Borrar</button>
+        </div>
     ) : (
         <p>Cargando evento...</p>
     )

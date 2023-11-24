@@ -97,7 +97,7 @@ const EditEvent = () => {
                 },
                 body: JSON.stringify(eventData),
             });
-            if (response.ok){
+            if (response.ok) {
                 navigate(`/event/${eventId}`)
             }
         } catch (error) {
@@ -108,7 +108,7 @@ const EditEvent = () => {
     return (
         <>
             <h2>Editar evento</h2>
-            <form onSubmit={handleSubmit}>
+            <form className='data-form' onSubmit={handleSubmit}>
                 <label>
                     Fecha y hora de inicio:
                     <input
@@ -171,11 +171,12 @@ const EditEvent = () => {
                     </select>
                 </label>
                 <br />
-                <button type="submit">Confirmar</button>
+                <button className='btn-primary' type="submit">Confirmar</button>
+                <button className='btn-secondary' onClick={() => {
+                    navigate(`/event/${eventId}`)
+                }}>Cancelar</button>
             </form>
-            <button onClick={() => {
-                navigate(`/event/${eventId}`)
-            }}>Cancelar</button>
+
         </>
     )
 }

@@ -75,7 +75,7 @@ const noteController = {
             if (!user){
                 throw new Error('Error al obtener el usuario')
             }
-            if (user.toString() !== tokenUserId) {
+            if (user._id != tokenUserId) {
                 return res.status(403).json({ message: 'No autorizado' });
             }
             return res.status(200).json(note);
