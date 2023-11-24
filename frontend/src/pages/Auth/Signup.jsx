@@ -57,23 +57,23 @@ const Signup = () => {
     return (
         <>
             <h1>Registrarse</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
+            <form onSubmit={handleSubmit} className="form-auth">
+                <label className="form-control">
                     Nombre:
                     <input type="text" value={name} onChange={handleNameChange} />
                 </label>
                 <br />
-                <label>
+                <label className="form-control">
                     Correo electrónico:
                     <input type="email" value={email} onChange={handleEmailChange} />
                 </label>
                 <br />
-                <label>
+                <label className="form-control">
                     Contraseña:
                     <input type="password" value={password} onChange={handlePasswordChange} />
                 </label>
                 <br />
-                <button type="submit">Registrarse</button>
+                <button type="submit" className="btn-primary">Registrarse</button>
             </form>
             <Link to={"/signin"}>Iniciar sesión</Link>
         </>

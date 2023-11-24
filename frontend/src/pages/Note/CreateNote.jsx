@@ -50,7 +50,7 @@ const CreateNote = () => {
     return (
         <>
             <h2>Crear Nota</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='data-form'>
                 <label>
                     Título:
                     <input
@@ -74,7 +74,10 @@ const CreateNote = () => {
                 </label>
                 <br />
 
-                <button type="submit">Crear Nota</button>
+                <button className='btn-primary' type="submit">Crear Nota</button>
+                <button className='btn-secondary' onClick={()=>{
+                    navigate(`/event/${eventId}`)
+                }}>Cancelar</button>
             </form>
         </>
     );

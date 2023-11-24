@@ -32,10 +32,10 @@ const Calendar = ({ changeDate }) => {
     return (
         <div className="calendar-container">
             <div className="calendar-header">
-                <h1>{format(currentDate, 'MMMM yyyy')}</h1>
-                <button onClick={prevMonth}>Anterior Mes</button>
-                <button onClick={goToCurrentMonth}>Hoy</button>
-                <button onClick={nextMonth}>Siguiente Mes</button>
+                <h2>{format(currentDate, 'MMMM yyyy')}</h2>
+                <button className='btn-secondary' onClick={prevMonth}>Anterior Mes</button>
+                <button className='btn-primary' onClick={goToCurrentMonth}>Hoy</button>
+                <button className='btn-secondary' onClick={nextMonth}>Siguiente Mes</button>
             </div>
             <table>
                 <thead>
