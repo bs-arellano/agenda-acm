@@ -52,9 +52,10 @@ const Signin = () => {
     };
 
     return (
-        <>
-            <h1>Inicio de sesión</h1>
+        <div className="page">
+            <h1>Agenda ACM</h1>
             <form onSubmit={handleSubmit} className="form-auth">
+                <h2>Iniciar sesión</h2>
                 <label className="form-control">
                     Correo electrónico:
                     <input type="email" value={email} onChange={handleEmailChange} />
@@ -68,7 +69,7 @@ const Signin = () => {
                 <button type="submit" className="btn-primary">Iniciar sesión</button>
             </form>
             <Link to={"/signup"}>Registrarse</Link>
-        </>
+        </div>
     );
 }
 

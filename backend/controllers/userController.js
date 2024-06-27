@@ -1,35 +1,24 @@
 const jwt = require('jsonwebtoken')
-const crypto = require('node:crypto')
+const bcrypt = require('bcrypt');
 
 const { User } = require('../models/userModel.js')
 const { JWT_SECRET, DB_ENCRYPTION_KEY } = require('../configs/constants')
 
-function encrypt(text) {
-    const cipher = crypto.createCipher('aes-128-ecb', DB_ENCRYPTION_KEY);
-    let encrypted = cipher.update(text, 'utf-8', 'hex');
-    encrypted += cipher.final('hex');
-    return encrypted;
-}
-
-function decrypt(encryptedText) {
-    const decipher = crypto.createDecipher('aes-128-ecb', DB_ENCRYPTION_KEY);
-    let decrypted = decipher.update(encryptedText, 'hex', 'utf-8');
-    decrypted += decipher.final('utf-8');
-    return decrypted;
-}
+const saltRounds = 10;
 
 const userController = {
     signup: async (req, res) => {
         try {
             const { name, email, password } = req.body
-            const existingUser = await User.findOne({ email: encrypt(email) })
+            const existingUser = await User.findOne({ email: email })
             if (existingUser) {
                 return res.status(409).json({ message: 'El usuario ya existe' });
             }
+            const salt = bcrypt.genSaltSync(saltRounds);
             const newUser = new User({
                 name: name,
-                email: encrypt(email),
-                password: encrypt(password)
+                email: email,
+                password: bcrypt.hashSync(password, salt)
             })
             await newUser.save()
             return res.status(201).json({ message: 'Usuario registrado exitosamente' })
@@ -41,14 +30,12 @@ const userController = {
     signin: async (req, res) => {
         try {
             const { email, password } = req.body
-            const user = await User.findOne({ email: encrypt(email) })
+            const user = await User.findOne({ email: email })
             if (!user) {
                 return res.status(401).json({ message: 'Usuario no encontrado' });
             }
-            const isPasswordValid = user.password === encrypt(password) ? true : false
-            if (!isPasswordValid) {
-                return res.status(401).json({ message: 'Credenciales incorrectas.' });
-            }
+            matchingPassword = bcrypt.compareSync(password, user.password);
+            if (!matchingPassword) return res.status(401).json({ message: 'Credenciales incorrectas.' });
             const payload = { id: user._id };
             const token = jwt.sign(payload, JWT_SECRET)
             return res.status(200).json({ id: user._id, token: token })

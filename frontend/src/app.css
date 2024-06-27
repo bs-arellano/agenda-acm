@@ -1,110 +1,106 @@
-body {
-    margin: 0;
-    min-height: 100dvh;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    min-width: 470px;
+* { margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; }
+
+input, button, textarea, select { font: inherit; }
+
+p { text-wrap: pretty; }
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+
+img, video, svg { height: auto; max-width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --text: #2f3e46;
+    --background: #fbfcf8;
+    --alt-background: #dae2dc;
+    --primary: #84a98c;
+    --secondary: #537970;
+    --accent: #344d50;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #b9c8d0;
+    --background: #060703;
+    --alt-background: #202823;
+    --primary: #567b5e;
+    --secondary: #86aca3;
+    --accent: #afc8cb;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #23232329;
 }
 
 #root {
-    display: flex;
-    flex-direction: column;
-    width: 100%
+  min-height: 100dvh;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: 'Roboto', sans-serif;
 }
 
-.btn-primary,
-.btn-secondary {
-    border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-weight: bold;
-    margin: 5px;
+.page {
+  margin: 0;
+  padding: 1rem;
+  background-color: var(--background);
 }
 
-.btn-primary {
-    background-color: #263238;
-    color: #FFFFFF;
+.page form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+  margin: 0 auto; 
+  align-items: center;
+  background-color: var(--alt-background);
+  border-radius: 25px;
+  padding: 2rem;
 }
 
-.btn-primary:hover {
-    cursor: pointer;
-    background-color: #546E7A;
+.page form label{
+  display: flex;
+  flex-direction: column;
 }
 
-.btn-secondary {
-    background-color: #CFD8DC;
-    color: #000000;
+.page form label input{
+  color: var(--text);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--text);
+  background-color: #00000000;
 }
 
-.btn-secondary:hover {
-    background-color: #90A4AE;
-    cursor: pointer;
+button{
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 1rem 2rem;
+  cursor: pointer;
 }
 
-.form-auth, .data-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    margin: auto;
-    align-items: center;
+.btn-primary{
+  background-color: var(--primary);
+  color: var(--background);
 }
 
-.form-auth .btn-primary {
-    max-width: 70%;
-}
-
-.form-control, .data-form label {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.form-control input, .data-form label input {
-    border: 1px solid #263238;
-    border-radius: 25px;
-    background-color: #fff;
-    padding: 5px 10px;
-    width: 90%;
-}
-
-.form-control input:focus, .data-form label input:focus, .data-form textarea:focus {
-    border: 1px solid #607D8B;
-}
-
-a {
-    text-decoration: none;
-    color: #546E7A;
-}
-
-a:visited {
-    color: #546E7A;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.data-form textarea{
-    resize: none;
-    overflow-y: hidden;
-    min-height: 50px;
-    border-radius: 5px;
-    border: 1px solid #263238;
-}
-
-.data-form select{
-    overflow-y: hidden;
-    min-height: 50px;
-    border-radius: 5px;
-    border: 1px solid #263238;
-}
-
-.card{
-    margin: 1rem auto;
-    padding: 1rem;
-    border: 1px solid #CFD8DC;
-    border-radius: 25px;
-}
-.card .field-title{
-    font-weight: bolder;
+.btn-secondary{
+  background-color: var(--alt-background);
+  color: var(--text);
 }

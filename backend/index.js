@@ -19,9 +19,16 @@ db.once("open", function () {
 });
 
 //CORS
-const corsOptions = {
+const corsOptions = process.env.NODE_ENV != 'production'?
+{
+    origin: 'http://localhost:5173',
+}
+:
+{
     origin: 'https://agendaacm2023-3-frontend.onrender.com',
 }
+
+console.log(corsOptions)
 
 //SWAGGER
 const specs = swaggerJsdoc(swaggerOptions);
